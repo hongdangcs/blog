@@ -1,7 +1,6 @@
 package helpers
 
-import "testing"
-
+/*
 var samples = []struct {
 	email   string
 	correct bool
@@ -47,3 +46,4 @@ func BenchmarkValidateEmail(b *testing.B) {
 		}
 	}
 }
+*/

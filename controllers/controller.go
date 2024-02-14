@@ -3,20 +3,12 @@ package controllers
 import (
 	"bytes"
 	"io"
-	"log"
 	"net/http"
-	"strconv"
-	"strings"
-	"time"
 
-	"github.com/aristorinjuang/blog/helpers"
-	"github.com/aristorinjuang/blog/models"
 	"github.com/aristorinjuang/blog/views"
-	"github.com/google/uuid"
-	"github.com/gosimple/slug"
-	"golang.org/x/crypto/bcrypt"
 )
 
+/*
 var data struct {
 	Article  *models.Article
 	Articles []*models.Article
@@ -57,35 +49,21 @@ func permission(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-
+*/
 // Index is a homepage controller.
 func Index(w http.ResponseWriter, r *http.Request) {
-	path := strings.Split(r.URL.Path, "/")[1]
 
-	if path == "" {
-		data.Articles = models.Articles()
-
-		var response bytes.Buffer
-		if err := views.Tmpl.ExecuteTemplate(&response, "index.gohtml", data); err != nil {
-			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
-			return
-		}
-
-		io.WriteString(w, response.String())
-	} else {
-		data.Article = models.FindArticle(path)
-
-		var response bytes.Buffer
-		if err := views.Tmpl.ExecuteTemplate(&response, "single.gohtml", data); err != nil {
-			log.Fatal(err)
-			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
-			return
-		}
-
-		io.WriteString(w, response.String())
+	var response bytes.Buffer
+	if err := views.Tmpl.ExecuteTemplate(&response, "index.gohtml", nil); err != nil {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
 	}
+
+	io.WriteString(w, response.String())
+
 }
 
+/*
 // Register is a controller to register a user.
 func Register(w http.ResponseWriter, r *http.Request) {
 	permission(w, r)
@@ -275,3 +253,4 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+*/
