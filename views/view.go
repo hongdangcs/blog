@@ -1,9 +1,7 @@
 package views
 
 import (
-	"log"
 	"os"
-	"strings"
 	"text/template"
 	"time"
 )
@@ -35,20 +33,23 @@ var functions = template.FuncMap{
 	"truncate":  truncate,
 }
 
-/*
-	func init() {
-		Tmpl = template.Must(template.New("./views/*.gohtml").Funcs(functions).ParseGlob("./views/*.gohtml"))
-	}
-*/
-func init() {
-	var err error
-	dir, _ := os.Getwd()
-	dir += "/views/*.gohtml"
-	dir = strings.Replace(dir, "\\", "/", -1)
+func getDir() string {
+	dir := ""
 
-	log.Println("view dir: " + dir)
-	Tmpl, err = template.New("views").Funcs(functions).ParseGlob(dir)
-	if err != nil {
-		log.Fatalf("Error parsing templates: %v", err)
-	}
+	return dir
 }
+
+func init() {
+	dir, _ := os.Getwd()
+	Tmpl = template.Must(template.New(dir + "./views/*.gohtml").Funcs(functions).ParseGlob(dir + "./views/*.gohtml"))
+}
+
+// func init() {
+// 	var err error
+// 	dir := getDir() + "./views/*.gohtml"
+
+// 	Tmpl, err = template.New("views").Funcs(functions).ParseGlob(dir)
+// 	if err != nil {
+// 		log.Fatalf("Error parsing templates: %v", err)
+// 	}
+// }
