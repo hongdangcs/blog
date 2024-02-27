@@ -1,6 +1,7 @@
 package views
 
 import (
+	"log"
 	"text/template"
 	"time"
 )
@@ -32,6 +33,15 @@ var functions = template.FuncMap{
 	"truncate":  truncate,
 }
 
+/*
+	func init() {
+		Tmpl = template.Must(template.New("./views/*.gohtml").Funcs(functions).ParseGlob("./views/*.gohtml"))
+	}
+*/
 func init() {
-	Tmpl = template.Must(template.New("./views/*.gohtml").Funcs(functions).ParseGlob("./views/*.gohtml"))
+	var err error
+	Tmpl, err = template.New("./views/*.gohtml").Funcs(functions).ParseGlob("./views/*.gohtml")
+	if err != nil {
+		log.Fatalf("Error parsing templates: %v", err)
+	}
 }
