@@ -2,6 +2,7 @@ package views
 
 import (
 	"log"
+	"os"
 	"text/template"
 	"time"
 )
@@ -40,7 +41,8 @@ var functions = template.FuncMap{
 */
 func init() {
 	var err error
-	Tmpl, err = template.New("./views/*.gohtml").Funcs(functions).ParseGlob("./views/*.gohtml")
+	dir, _ := os.Getwd()
+	Tmpl, err = template.New("views").Funcs(functions).ParseGlob(dir + "/views/*.gohtml")
 	if err != nil {
 		log.Fatalf("Error parsing templates: %v", err)
 	}
