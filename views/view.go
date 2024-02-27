@@ -42,7 +42,7 @@ var functions = template.FuncMap{
 func init() {
 	var err error
 	dir, _ := os.Getwd()
-	Tmpl, err = template.New("views").Funcs(functions).ParseGlob(dir + "/views/*.gohtml")
+	Tmpl, err = template.New("views").Funcs(functions).ParseGlob(dir + "views/*.gohtml")
 	if err != nil {
 		log.Fatalf("Error parsing templates: %v", err)
 	}
