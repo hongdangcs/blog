@@ -43,9 +43,10 @@ var functions = template.FuncMap{
 func init() {
 	var err error
 	dir, _ := os.Getwd()
-	log.Println("view dir: " + dir)
 	dir += "/views/*.gohtml"
 	dir = strings.Replace(dir, "\\", "/", -1)
+
+	log.Println("view dir: " + dir)
 	Tmpl, err = template.New("views").Funcs(functions).ParseGlob(dir)
 	if err != nil {
 		log.Fatalf("Error parsing templates: %v", err)
